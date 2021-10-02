@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { Counter, Panel, List, ListItem, Divider } from "react95";
+import { Counter, List, ListItem, Divider } from "react95";
 
 const Calculator = () => {
   return (

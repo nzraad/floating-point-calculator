@@ -7,13 +7,11 @@ import {
   Window,
   WindowHeader,
   WindowContent,
-  Fieldset,
-  NumberField,
-  Checkbox,
 } from "react95";
 
 import Calculator from "./Calculator";
 import Converter from "./Converter";
+import HelloWorld from "./HelloWorld";
 
 const CalculatorWindow = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -25,12 +23,14 @@ const CalculatorWindow = () => {
       <WindowHeader>Zoomys Web App</WindowHeader>
       <WindowContent>
         <Tabs value={activeTab} onChange={handleChange}>
-          <Tab value={0}>Converter</Tab>
+          <Tab value={0}>Hello World</Tab>
           <Tab value={1}>Calculator</Tab>
+          <Tab value={2}>Calculator</Tab>
         </Tabs>
         <TabBody>
-          {activeTab === 0 && <Converter />}
-          {activeTab === 1 && <Calculator />}
+          {activeTab === 0 && <HelloWorld />}
+          {activeTab === 1 && <Converter />}
+          {activeTab === 2 && <Calculator />}
         </TabBody>
       </WindowContent>
     </Window>

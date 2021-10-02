@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Panel, TextField, Checkbox, Fieldset } from "react95";
+import { Panel, TextField, Checkbox } from "react95";
 
 const Converter = () => {
   return (
