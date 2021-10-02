@@ -24,7 +24,7 @@ const CalculatorWindow = () => {
       <WindowContent>
         <Tabs value={activeTab} onChange={handleChange}>
           <Tab value={0}>Hello World</Tab>
-          <Tab value={1}>Calculator</Tab>
+          <Tab value={1}>Converter</Tab>
           <Tab value={2}>Calculator</Tab>
         </Tabs>
         <TabBody>
