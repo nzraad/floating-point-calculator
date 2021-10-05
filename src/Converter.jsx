@@ -1,8 +1,18 @@
-import React from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 
 import { Panel, TextField, Checkbox } from "react95";
 
 const Converter = () => {
+  const [decimal, setDecimal] = useState(0);
+
+  useEffect(() => {
+    console.log(decimal);
+    axios
+      .get(`https://www.h-schmidt.net/FloatConverter/binary-json.py?decimal=54`)
+      .then((response) => console.log(response.data));
+  }, [decimal]);
+
   return (
     <div>
       <Panel
@@ -99,23 +109,14 @@ const Converter = () => {
       <br />
       <br />
       <div>
-        <span>You entered : </span>
-        <TextField value="0" style={{ width: "50%" }} />
-      </div>
-      <br />
-      <div>
-        <span>Decimal representation : </span>
-        <TextField value="0" style={{ width: "50%" }} />
-      </div>
-      <br />
-      <div>
-        <span>Value actually stored in float : </span>
-        <TextField value="0" style={{ width: "50%" }} />
-      </div>
-      <br />
-      <div>
-        <span>Binary Representation : </span>
-        <TextField value="0" style={{ width: "50%" }} />
+        <span>Decimal Representation : </span>
+        <TextField
+          value={decimal}
+          style={{ width: "50%" }}
+          onChange={(e) => {
+            setDecimal(e.target.value);
+          }}
+        />
       </div>
       <br />
       <div>

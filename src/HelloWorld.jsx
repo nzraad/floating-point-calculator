@@ -20,7 +20,7 @@ const HelloWorld = () => {
       <Button
         onClick={() => {
           axios
-            .get(`http://3.22.187.131:5000/${name}`, {
+            .get(`https://3.22.187.131/${name}`, {
               headers: {
                 security_key: "U1xrbVINgxKUEnXuzxS3",
                 security_token: "23d4d57ab18b13c81b7ad07cd0503029",
