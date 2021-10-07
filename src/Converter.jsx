@@ -107,7 +107,6 @@ const Converter = () => {
             disabled={isLoading}
             onChange={() => {
               setSign(!sign);
-              onChangeBinary();
             }}
           />
         </div>
@@ -149,7 +148,6 @@ const Converter = () => {
                   const newExponentArray = [...exponentArray];
                   newExponentArray[index] = !value;
                   setExponentArray(newExponentArray);
-                  onChangeBinary();
                 }}
               />
             );
