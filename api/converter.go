@@ -39,7 +39,8 @@ func Converter(w http.ResponseWriter, r *http.Request) {
 
 	if okDecimal && len(decimalArray[0]) > 0 {
 		decimal := decimalArray[0]
-
+		fmt.Printf("%v", decimalArray)
+		fmt.Printf("%v", decimal)
 		if response, err := http.Get("https://www.h-schmidt.net/FloatConverter/binary-json.py?decimal=" + decimal); err == nil {	
 			bodyBytes, err := ioutil.ReadAll(response.Body)
 	
