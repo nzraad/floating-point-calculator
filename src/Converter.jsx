@@ -1,6 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useEffect } from "react/cjs/react.development";
+import React, { useState, useEffect } from "react";
 
 import { Button, Panel, TextField, LoadingIndicator } from "react95";
 
@@ -63,18 +62,17 @@ const Converter = ({
     });
   };
 
-  // useEffect(() => {
-  //   console.log(decimal);
-  //   // axios.get(`/api/converter?decimal=${decimalValue}`).then((response) => {
-  //   //   const { data } = response;
-  //   //   setDecimal(data.decimalRepr);
-  //   //   setHexadecimal(data.hexadecimalRepr);
-  //   //   setExponentArray(data.exponent_array);
-  //   //   setMantisseArray(data.mantisse_array);
-  //   //   setSign(data.sign_bool);
-  //   //   setIsLoading(false);
-  //   // });
-  // }, [decimalValue]);
+  useEffect(() => {
+    axios.get(`/api/converter?decimal=${decimalValue}`).then((response) => {
+      const { data } = response;
+      setDecimal(data.decimalRepr);
+      setHexadecimal(data.hexadecimalRepr);
+      setExponentArray(data.exponent_array);
+      setMantisseArray(data.mantisse_array);
+      setSign(data.sign_bool);
+      setIsLoading(false);
+    });
+  }, [decimalValue]);
 
   const onChangeHex = () => {
     axios.get(`/api/converter?hexadecimal=${hexadecimal}`).then((response) => {
