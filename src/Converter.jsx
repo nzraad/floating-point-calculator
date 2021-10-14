@@ -64,15 +64,16 @@ const Converter = ({
   };
 
   useEffect(() => {
-    axios.get(`/api/converter?decimal=${decimalValue}`).then((response) => {
-      const { data } = response;
-      setDecimal(data.decimalRepr);
-      setHexadecimal(data.hexadecimalRepr);
-      setExponentArray(data.exponent_array);
-      setMantisseArray(data.mantisse_array);
-      setSign(data.sign_bool);
-      setIsLoading(false);
-    });
+    console.log(decimal);
+    // axios.get(`/api/converter?decimal=${decimalValue}`).then((response) => {
+    //   const { data } = response;
+    //   setDecimal(data.decimalRepr);
+    //   setHexadecimal(data.hexadecimalRepr);
+    //   setExponentArray(data.exponent_array);
+    //   setMantisseArray(data.mantisse_array);
+    //   setSign(data.sign_bool);
+    //   setIsLoading(false);
+    // });
   }, [decimalValue]);
 
   const onChangeHex = () => {
