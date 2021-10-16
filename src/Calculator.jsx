@@ -9,6 +9,18 @@ const Calculator = () => {
   const [numberTwo, setNumberTwo] = useState(null);
   const [operation, setOperation] = useState(null);
   const [result, setResult] = useState(null);
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "auto",
+    });
+  };
+
+  const clearValueFromAbove = () => {
+    setNumberOne(null);
+    setNumberTwo(null);
+    setOperation(null);
+  };
 
   return (
     <div style={{ height: "1600px", width: "100%", margin: "auto" }}>
@@ -20,8 +32,10 @@ const Calculator = () => {
           <Panel>
             <Converter
               setDecimalValue={setNumberOne}
+              clearValueFromAbove={clearValueFromAbove}
               calculate
               disabled={numberOne !== null}
+              viewOnly
             />
           </Panel>
         </div>
@@ -105,6 +119,7 @@ const Calculator = () => {
                     const { data } = response;
                     setResult(data.answer);
                   });
+                scrollToBottom();
               }}
               disabled={
                 numberOne === null || numberTwo === null || operation === null
@@ -159,7 +174,9 @@ const Calculator = () => {
                 ></div>
               ))}
             <Converter
+              viewOnly
               setDecimalValue={setNumberTwo}
+              clearValueFromAbove={clearValueFromAbove}
               calculate
               disabled={numberTwo !== null}
             />
@@ -175,11 +192,13 @@ const Calculator = () => {
           }}
         >
           <Panel>
-            {numberOne ? numberOne : "(Number One)"}{" "}
+            {/* {numberOne ? numberOne : "(Number One)"}{" "}
             {operation ? operation : "Operation"}{" "}
             {numberTwo ? numberTwo : "(Number Two)"} ={" "}
-            {result ? result : "Result"}
-            {result && <Converter decimalValue={result} calculate disabled />}
+            {result ? result : "Result"} */}
+            {result && (
+              <Converter viewOnly decimalValue={result} calculate disabled />
+            )}
           </Panel>
         </div>
       </div>

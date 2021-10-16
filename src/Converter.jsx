@@ -8,6 +8,8 @@ const Converter = ({
   decimalValue = "0.0",
   calculate = false,
   disabled = false,
+  viewOnly = false,
+  clearValueFromAbove = () => {},
 }) => {
   const [decimal, setDecimal] = useState("0.0");
   const [hexadecimal, setHexadecimal] = useState("0x00000000");
@@ -50,11 +52,44 @@ const Converter = ({
   const [sign, setSign] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const clearValue = () => {
+    setHexadecimal("0x00000000");
+    setDecimal("0.0");
+    setSign(false);
+    setMantisseArray([
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+    ]);
+    setExponentArray([false, false, false, false, false, false, false, false]);
+    clearValueFromAbove();
+  };
+
   const onChangeDecimal = () => {
     axios.get(`/api/converter?decimal=${decimal}`).then((response) => {
       const { data } = response;
       setDecimalValue(decimal);
-      setHexadecimal(data.hexadecimalRepr);
+      setHexadecimal(data.hexadecimalRepr.toUpperCase());
       setExponentArray(data.exponent_array);
       setMantisseArray(data.mantisse_array);
       setSign(data.sign_bool);
@@ -66,7 +101,7 @@ const Converter = ({
     axios.get(`/api/converter?decimal=${decimalValue}`).then((response) => {
       const { data } = response;
       setDecimal(data.decimalRepr);
-      setHexadecimal(data.hexadecimalRepr);
+      setHexadecimal(data.hexadecimalRepr.toUpperCase());
       setExponentArray(data.exponent_array);
       setMantisseArray(data.mantisse_array);
       setSign(data.sign_bool);
@@ -269,7 +304,7 @@ const Converter = ({
           style={{ width: "50%", margin: calculate ? "auto" : "" }}
           disabled={isLoading}
           onChange={(e) => {
-            setHexadecimal(e.target.value);
+            setHexadecimal(e.target.value.toUpperCase());
           }}
         />
       </div>
@@ -293,6 +328,25 @@ const Converter = ({
         </Button>
       )}
       <br />
+      {!viewOnly && decimal !== "0.0" && (
+        <Button
+          style={{
+            height: "50px",
+            width: "200px",
+            float: calculate ? "" : "right",
+            marginTop: "10px",
+            marginBottom: "10px",
+            backgroundColor: "#060084",
+            color: "white",
+          }}
+          disabled={isLoading}
+          onClick={() => {
+            clearValue();
+          }}
+        >
+          Clear
+        </Button>
+      )}
 
       <LoadingIndicator isLoading={isLoading} />
     </div>
