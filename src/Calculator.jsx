@@ -35,66 +35,67 @@ const Calculator = () => {
               clearValueFromAbove={clearValueFromAbove}
               calculate
               disabled={numberOne !== null}
-              viewOnly
             />
           </Panel>
         </div>
         <div style={{ height: "100%", float: "left", width: "10%" }}>
           <Panel style={{ width: "100%" }}>
-            <div style={{ position: "relative" }}>
-              {numberOne === null && (
-                <div
+            {numberOne && (
+              <div style={{ position: "relative" }}>
+                {numberOne === null && (
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      position: "absolute",
+                      zIndex: 999,
+                      top: 0,
+                      left: 0,
+                      backgroundColor: "rgba(0, 0, 0, 0.4)",
+                    }}
+                  ></div>
+                )}
+                <Button
                   style={{
                     width: "100%",
-                    height: "100%",
-                    position: "absolute",
-                    zIndex: 999,
-                    top: 0,
-                    left: 0,
-                    backgroundColor: "rgba(0, 0, 0, 0.4)",
+                    backgroundColor:
+                      operation === "multiplication" ? "green" : "",
                   }}
-                ></div>
-              )}
-              <Button
-                style={{
-                  width: "100%",
-                  backgroundColor:
-                    operation === "multiplication" ? "green" : "",
-                }}
-                disabled={operation !== null}
-                onClick={() => {
-                  setOperation("multiplication");
-                }}
-              >
-                Multiply
-              </Button>
-              <br />
-              <Button
-                style={{
-                  width: "100%",
-                  backgroundColor: operation === "subtraction" ? "green" : "",
-                }}
-                onClick={() => {
-                  setOperation("subtraction");
-                }}
-                disabled={operation !== null}
-              >
-                Subtract
-              </Button>
-              <br />
-              <Button
-                style={{
-                  width: "100%",
-                  backgroundColor: operation === "addition" ? "green" : "",
-                }}
-                onClick={() => {
-                  setOperation("addition");
-                }}
-                disabled={operation !== null}
-              >
-                Add
-              </Button>
-            </div>
+                  disabled={operation !== null}
+                  onClick={() => {
+                    setOperation("multiplication");
+                  }}
+                >
+                  Multiply
+                </Button>
+                <br />
+                <Button
+                  style={{
+                    width: "100%",
+                    backgroundColor: operation === "subtraction" ? "green" : "",
+                  }}
+                  onClick={() => {
+                    setOperation("subtraction");
+                  }}
+                  disabled={operation !== null}
+                >
+                  Subtract
+                </Button>
+                <br />
+                <Button
+                  style={{
+                    width: "100%",
+                    backgroundColor: operation === "addition" ? "green" : "",
+                  }}
+                  onClick={() => {
+                    setOperation("addition");
+                  }}
+                  disabled={operation !== null}
+                >
+                  Add
+                </Button>
+              </div>
+            )}
             <br />
             <br />
             <br />
@@ -159,22 +160,20 @@ const Calculator = () => {
               position: "relative",
             }}
           >
-            {numberOne === null ||
-              (operation === null && (
-                <div
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    position: "absolute",
-                    zIndex: 999,
-                    top: 0,
-                    left: 0,
-                    backgroundColor: "rgba(0, 0, 0, 0.4)",
-                  }}
-                ></div>
-              ))}
+            {(numberOne === null || operation === null) && (
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  position: "absolute",
+                  zIndex: 999,
+                  top: 0,
+                  left: 0,
+                  backgroundColor: "rgba(0, 0, 0, 0.4)",
+                }}
+              ></div>
+            )}
             <Converter
-              viewOnly
               setDecimalValue={setNumberTwo}
               clearValueFromAbove={clearValueFromAbove}
               calculate
@@ -192,13 +191,7 @@ const Calculator = () => {
           }}
         >
           <Panel>
-            {/* {numberOne ? numberOne : "(Number One)"}{" "}
-            {operation ? operation : "Operation"}{" "}
-            {numberTwo ? numberTwo : "(Number Two)"} ={" "}
-            {result ? result : "Result"} */}
-            {result && (
-              <Converter viewOnly decimalValue={result} calculate disabled />
-            )}
+            {result && <Converter decimalValue={result} calculate disabled />}
           </Panel>
         </div>
       </div>

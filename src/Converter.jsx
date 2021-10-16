@@ -13,6 +13,13 @@ const Converter = ({
 }) => {
   const [decimal, setDecimal] = useState("0.0");
   const [hexadecimal, setHexadecimal] = useState("0x00000000");
+  const [exponentValue, setExponentValue] = useState("-126 (denormalized)");
+  const [actualExponent, setActualExponent] = useState("0");
+  const [signValue, setSignValue] = useState("+1");
+  const [actualSign, setActualSign] = useState("0");
+  const [mantissaValue, setMantissaValue] = useState("0.0 (denormalized)");
+  const [actualMantissa, setActualMantissa] = useState("0");
+
   const [exponentArray, setExponentArray] = useState([
     false,
     false,
@@ -93,6 +100,12 @@ const Converter = ({
       setExponentArray(data.exponent_array);
       setMantisseArray(data.mantisse_array);
       setSign(data.sign_bool);
+      setExponentValue(data.exponent_value);
+      setActualExponent(data.actual_exponent);
+      setSignValue(data.sign_value);
+      setActualSign(data.actual_sign);
+      setMantissaValue(data.mantissa_value);
+      setActualMantissa(data.actual_mantissa);
       setIsLoading(false);
     });
   };
@@ -105,6 +118,12 @@ const Converter = ({
       setExponentArray(data.exponent_array);
       setMantisseArray(data.mantisse_array);
       setSign(data.sign_bool);
+      setExponentValue(data.exponent_value);
+      setActualExponent(data.actual_exponent);
+      setSignValue(data.sign_value);
+      setActualSign(data.actual_sign);
+      setMantissaValue(data.mantissa_value);
+      setActualMantissa(data.actual_mantissa);
       setIsLoading(false);
     });
   }, [decimalValue]);
@@ -117,6 +136,12 @@ const Converter = ({
       setExponentArray(data.exponent_array);
       setMantisseArray(data.mantisse_array);
       setSign(data.sign_bool);
+      setExponentValue(data.exponent_value);
+      setActualExponent(data.actual_exponent);
+      setSignValue(data.sign_value);
+      setActualSign(data.actual_sign);
+      setMantissaValue(data.mantissa_value);
+      setActualMantissa(data.actual_mantissa);
       setIsLoading(false);
     });
   };
@@ -134,6 +159,12 @@ const Converter = ({
         setDecimal(data.decimalRepr);
         setDecimalValue(data.decimalRepr);
         setHexadecimal(data.hexadecimalRepr);
+        setExponentValue(data.exponent_value);
+        setActualExponent(data.actual_exponent);
+        setSignValue(data.sign_value);
+        setActualSign(data.actual_sign);
+        setMantissaValue(data.mantissa_value);
+        setActualMantissa(data.actual_mantissa);
         setIsLoading(false);
       });
   };
@@ -152,9 +183,9 @@ const Converter = ({
         <div>
           Sign
           <br />
-          +1
+          {signValue}
           <br />
-          0
+          {actualSign}
           <br />
           <input
             type="checkbox"
@@ -188,11 +219,10 @@ const Converter = ({
                 fontSize: "smaller",
               }}
             >
-              -126
+              {exponentValue}
             </sup>
-            (denormalized)
           </p>
-          0
+          {actualExponent}
           <br />
           {exponentArray.map((value, index) => {
             return (
@@ -224,9 +254,9 @@ const Converter = ({
         <div>
           Mantissa
           <br />
-          1.0
+          {mantissaValue}
           <br />
-          0
+          {actualMantissa}
           <br />
           {mantisseArray.map((value, index) => {
             return (
@@ -347,7 +377,18 @@ const Converter = ({
           Clear
         </Button>
       )}
-
+      <input type="checkbox" disabled={isLoading} onChange={() => {}} />
+      Normalized Floating Point Number
+      <br />
+      <input type="checkbox" disabled={isLoading} onChange={() => {}} />
+      Denormalized Floating Point Number
+      <br />
+      <input type="checkbox" disabled={isLoading} onChange={() => {}} />
+      Not a Number (NaN)
+      <br />
+      <input type="checkbox" disabled={isLoading} onChange={() => {}} />
+      Zero
+      <br />
       <LoadingIndicator isLoading={isLoading} />
     </div>
   );
