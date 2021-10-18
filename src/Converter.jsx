@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Button, Panel, TextField, LoadingIndicator } from "react95";
 
@@ -88,7 +88,7 @@ const Converter = ({
     }
   }, [decimal, mantissaValue, exponentValue]);
 
-  const clearValue = useCallback(() => {
+  const clearValue = () => {
     setHexadecimal("0x00000000");
     setDecimal("0.0");
     setSign(false);
@@ -119,7 +119,7 @@ const Converter = ({
     ]);
     setExponentArray([false, false, false, false, false, false, false, false]);
     clearValueFromAbove();
-  }, [clearValueFromAbove]);
+  };
 
   const onChangeDecimal = () => {
     axios.get(`/api/converter?decimal=${decimal}`).then((response) => {
@@ -129,11 +129,7 @@ const Converter = ({
         data.decimalRepr === "" &&
         data.highprecision_decimal === ""
       ) {
-        if (window.confirm("Invalid Entry")) {
-          clearValue();
-        } else {
-          clearValue();
-        }
+        window.confirm("Invalid Entry");
       } else {
         setDecimalValue(decimal);
         setHexadecimal(data.hexadecimalRepr.toUpperCase());
@@ -159,11 +155,7 @@ const Converter = ({
         data.decimalRepr === "" &&
         data.highprecision_decimal === ""
       ) {
-        if (window.confirm("Invalid Entry")) {
-          clearValue();
-        } else {
-          clearValue();
-        }
+        window.confirm("Invalid Entry");
       } else {
         setDecimal(data.decimalRepr);
         setHexadecimal(data.hexadecimalRepr.toUpperCase());
@@ -179,7 +171,7 @@ const Converter = ({
       }
       setIsLoading(false);
     });
-  }, [decimalValue, clearValue]);
+  }, [decimalValue]);
 
   const onChangeHex = () => {
     axios.get(`/api/converter?hexadecimal=${hexadecimal}`).then((response) => {
@@ -189,11 +181,7 @@ const Converter = ({
         data.decimalRepr === "" &&
         data.highprecision_decimal === ""
       ) {
-        if (window.confirm("Invalid Entry")) {
-          clearValue();
-        } else {
-          clearValue();
-        }
+        window.confirm("Invalid Entry");
       } else {
         setDecimal(data.decimalRepr);
         setDecimalValue(data.decimalRepr);
@@ -227,11 +215,7 @@ const Converter = ({
           data.decimalRepr === "" &&
           data.highprecision_decimal === ""
         ) {
-          if (window.confirm("Invalid Entry")) {
-            clearValue();
-          } else {
-            clearValue();
-          }
+          window.confirm("Invalid Entry");
         } else {
           setDecimal(data.decimalRepr);
           setDecimalValue(data.decimalRepr);

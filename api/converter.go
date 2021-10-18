@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -39,8 +38,6 @@ func Converter(w http.ResponseWriter, r *http.Request) {
 
 	if okDecimal && len(decimalArray[0]) > 0 {
 		decimal := decimalArray[0]
-		fmt.Printf("%v", decimalArray)
-		fmt.Printf("%v", decimal)
 		if response, err := http.Get("https://www.h-schmidt.net/FloatConverter/binary-json.py?decimal=" + decimal); err == nil {	
 			bodyBytes, err := ioutil.ReadAll(response.Body)
 	
@@ -97,10 +94,8 @@ func Converter(w http.ResponseWriter, r *http.Request) {
 				log.Fatal(err)
 			}
 			bodyString := string(bodyBytes)
-			fmt.Print(bodyString)
 
 			var bodyJSON FloatResponse
-
 
 			Data := []byte(bodyString)
 		  
@@ -111,18 +106,4 @@ func Converter(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-
-    // response, err := http.Get("http://pokeapi.co/api/v2/pokedex/kanto/")
-
-    // if err != nil {
-    //     fmt.Print(err.Error())
-    //     os.Exit(1)
-    // }
-
-    // responseData, err := ioutil.ReadAll(response.Body)
-    // if err != nil {
-    //     log.Fatal(err)
-    // }
-    // fmt.Println(string(responseData))
-
 }
