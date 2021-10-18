@@ -23,7 +23,7 @@ const Calculator = () => {
   };
 
   return (
-    <div style={{ height: "1600px", width: "100%", margin: "auto" }}>
+    <div style={{ height: "1800px", width: "100%", margin: "auto" }}>
       <br />
       <br />
       <br />
