@@ -439,6 +439,7 @@ const Converter = ({
           Clear
         </Button>
       )}
+      <br />
       <input type="checkbox" checked={isNormalized} />
       Normalized Floating Point Number
       <br />
