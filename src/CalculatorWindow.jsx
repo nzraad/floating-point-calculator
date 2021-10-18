@@ -36,7 +36,8 @@ const CalculatorWindow = () => {
     } else if (location.pathname === "/calculator") {
       setActiveTab(1);
     }
-  }, [location]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Window className="window" style={{ width: "95%" }}>

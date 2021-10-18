@@ -181,7 +181,7 @@ const Converter = ({
     }
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clearValue, decimalValue]);
+  }, [decimalValue]);
 
   const onChangeHex = () => {
     axios.get(`/api/converter?hexadecimal=${hexadecimal}`).then((response) => {
