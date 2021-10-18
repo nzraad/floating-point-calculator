@@ -58,6 +58,35 @@ const Converter = ({
 
   const [sign, setSign] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isNotANumber, setIsNotANumber] = useState(false);
+  const [isZero, setIsZero] = useState(false);
+  const [isDenormalized, setIsDenormalized] = useState(false);
+  const [isNormalized, setIsNormalized] = useState(false);
+
+  useEffect(() => {
+    if (decimal === "nan") {
+      setIsNotANumber(true);
+    } else {
+      setIsNotANumber(false);
+    }
+
+    if (parseFloat(decimal, 10) === 0) {
+      setIsZero(true);
+    } else {
+      setIsZero(false);
+    }
+
+    if (
+      mantissaValue.includes("denormalized") ||
+      exponentValue.includes("denormalized")
+    ) {
+      setIsDenormalized(true);
+      setIsNormalized(false);
+    } else {
+      setIsDenormalized(false);
+      setIsNormalized(true);
+    }
+  }, [decimal, mantissaValue, exponentValue]);
 
   const clearValue = () => {
     setHexadecimal("0x00000000");
@@ -95,17 +124,29 @@ const Converter = ({
   const onChangeDecimal = () => {
     axios.get(`/api/converter?decimal=${decimal}`).then((response) => {
       const { data } = response;
-      setDecimalValue(decimal);
-      setHexadecimal(data.hexadecimalRepr.toUpperCase());
-      setExponentArray(data.exponent_array);
-      setMantisseArray(data.mantisse_array);
-      setSign(data.sign_bool);
-      setExponentValue(data.exponent_value);
-      setActualExponent(data.actual_exponent);
-      setSignValue(data.sign_value);
-      setActualSign(data.actual_sign);
-      setMantissaValue(data.mantissa_value);
-      setActualMantissa(data.actual_mantissa);
+      if (
+        data.decimalRepr === "" &&
+        data.decimalRepr === "" &&
+        data.highprecision_decimal === ""
+      ) {
+        if (window.confirm("Invalid Entry")) {
+          clearValue();
+        } else {
+          clearValue();
+        }
+      } else {
+        setDecimalValue(decimal);
+        setHexadecimal(data.hexadecimalRepr.toUpperCase());
+        setExponentArray(data.exponent_array);
+        setMantisseArray(data.mantisse_array);
+        setSign(data.sign_bool);
+        setExponentValue(data.exponent_value);
+        setActualExponent(data.actual_exponent);
+        setSignValue(data.sign_value);
+        setActualSign(data.actual_sign);
+        setMantissaValue(data.mantissa_value);
+        setActualMantissa(data.actual_mantissa);
+      }
       setIsLoading(false);
     });
   };
@@ -113,17 +154,29 @@ const Converter = ({
   useEffect(() => {
     axios.get(`/api/converter?decimal=${decimalValue}`).then((response) => {
       const { data } = response;
-      setDecimal(data.decimalRepr);
-      setHexadecimal(data.hexadecimalRepr.toUpperCase());
-      setExponentArray(data.exponent_array);
-      setMantisseArray(data.mantisse_array);
-      setSign(data.sign_bool);
-      setExponentValue(data.exponent_value);
-      setActualExponent(data.actual_exponent);
-      setSignValue(data.sign_value);
-      setActualSign(data.actual_sign);
-      setMantissaValue(data.mantissa_value);
-      setActualMantissa(data.actual_mantissa);
+      if (
+        data.decimalRepr === "" &&
+        data.decimalRepr === "" &&
+        data.highprecision_decimal === ""
+      ) {
+        if (window.confirm("Invalid Entry")) {
+          clearValue();
+        } else {
+          clearValue();
+        }
+      } else {
+        setDecimal(data.decimalRepr);
+        setHexadecimal(data.hexadecimalRepr.toUpperCase());
+        setExponentArray(data.exponent_array);
+        setMantisseArray(data.mantisse_array);
+        setSign(data.sign_bool);
+        setExponentValue(data.exponent_value);
+        setActualExponent(data.actual_exponent);
+        setSignValue(data.sign_value);
+        setActualSign(data.actual_sign);
+        setMantissaValue(data.mantissa_value);
+        setActualMantissa(data.actual_mantissa);
+      }
       setIsLoading(false);
     });
   }, [decimalValue]);
@@ -131,17 +184,30 @@ const Converter = ({
   const onChangeHex = () => {
     axios.get(`/api/converter?hexadecimal=${hexadecimal}`).then((response) => {
       const { data } = response;
-      setDecimal(data.decimalRepr);
-      setDecimalValue(data.decimalRepr);
-      setExponentArray(data.exponent_array);
-      setMantisseArray(data.mantisse_array);
-      setSign(data.sign_bool);
-      setExponentValue(data.exponent_value);
-      setActualExponent(data.actual_exponent);
-      setSignValue(data.sign_value);
-      setActualSign(data.actual_sign);
-      setMantissaValue(data.mantissa_value);
-      setActualMantissa(data.actual_mantissa);
+      if (
+        data.decimalRepr === "" &&
+        data.decimalRepr === "" &&
+        data.highprecision_decimal === ""
+      ) {
+        if (window.confirm("Invalid Entry")) {
+          clearValue();
+        } else {
+          clearValue();
+        }
+      } else {
+        setDecimal(data.decimalRepr);
+        setDecimalValue(data.decimalRepr);
+        setExponentArray(data.exponent_array);
+        setMantisseArray(data.mantisse_array);
+        setSign(data.sign_bool);
+        setExponentValue(data.exponent_value);
+        setActualExponent(data.actual_exponent);
+        setSignValue(data.sign_value);
+        setActualSign(data.actual_sign);
+        setMantissaValue(data.mantissa_value);
+        setActualMantissa(data.actual_mantissa);
+      }
+
       setIsLoading(false);
     });
   };
@@ -156,15 +222,27 @@ const Converter = ({
       )
       .then((response) => {
         const { data } = response;
-        setDecimal(data.decimalRepr);
-        setDecimalValue(data.decimalRepr);
-        setHexadecimal(data.hexadecimalRepr);
-        setExponentValue(data.exponent_value);
-        setActualExponent(data.actual_exponent);
-        setSignValue(data.sign_value);
-        setActualSign(data.actual_sign);
-        setMantissaValue(data.mantissa_value);
-        setActualMantissa(data.actual_mantissa);
+        if (
+          data.decimalRepr === "" &&
+          data.decimalRepr === "" &&
+          data.highprecision_decimal === ""
+        ) {
+          if (window.confirm("Invalid Entry")) {
+            clearValue();
+          } else {
+            clearValue();
+          }
+        } else {
+          setDecimal(data.decimalRepr);
+          setDecimalValue(data.decimalRepr);
+          setHexadecimal(data.hexadecimalRepr);
+          setExponentValue(data.exponent_value);
+          setActualExponent(data.actual_exponent);
+          setSignValue(data.sign_value);
+          setActualSign(data.actual_sign);
+          setMantissaValue(data.mantissa_value);
+          setActualMantissa(data.actual_mantissa);
+        }
         setIsLoading(false);
       });
   };
@@ -377,16 +455,16 @@ const Converter = ({
           Clear
         </Button>
       )}
-      <input type="checkbox" disabled={isLoading} onChange={() => {}} />
+      <input type="checkbox" checked={isNormalized} />
       Normalized Floating Point Number
       <br />
-      <input type="checkbox" disabled={isLoading} onChange={() => {}} />
+      <input type="checkbox" checked={isDenormalized} />
       Denormalized Floating Point Number
       <br />
-      <input type="checkbox" disabled={isLoading} onChange={() => {}} />
+      <input type="checkbox" checked={isNotANumber} />
       Not a Number (NaN)
       <br />
-      <input type="checkbox" disabled={isLoading} onChange={() => {}} />
+      <input type="checkbox" checked={isZero} />
       Zero
       <br />
       <LoadingIndicator isLoading={isLoading} />
