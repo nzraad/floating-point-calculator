@@ -65,6 +65,11 @@ const Converter = ({
   const [isNormalized, setIsNormalized] = useState(false);
 
   useEffect(() => {
+    setIsNotANumber(false);
+    setIsDenormalized(false);
+    setIsZero(false);
+    setIsNormalized(false);
+
     if (decimal === "nan") {
       setIsNotANumber(true);
     } else {
