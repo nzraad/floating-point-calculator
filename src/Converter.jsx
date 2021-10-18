@@ -180,7 +180,8 @@ const Converter = ({
       clearValue();
     }
     setIsLoading(false);
-  }, [decimalValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clearValue, decimalValue]);
 
   const onChangeHex = () => {
     axios.get(`/api/converter?hexadecimal=${hexadecimal}`).then((response) => {
