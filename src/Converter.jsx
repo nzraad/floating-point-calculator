@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import { Button, Panel, TextField, LoadingIndicator } from "react95";
 
@@ -88,7 +88,7 @@ const Converter = ({
     }
   }, [decimal, mantissaValue, exponentValue]);
 
-  const clearValue = () => {
+  const clearValue = useCallback(() => {
     setHexadecimal("0x00000000");
     setDecimal("0.0");
     setSign(false);
@@ -119,7 +119,7 @@ const Converter = ({
     ]);
     setExponentArray([false, false, false, false, false, false, false, false]);
     clearValueFromAbove();
-  };
+  }, [clearValueFromAbove]);
 
   const onChangeDecimal = () => {
     axios.get(`/api/converter?decimal=${decimal}`).then((response) => {
@@ -179,7 +179,7 @@ const Converter = ({
       }
       setIsLoading(false);
     });
-  }, [decimalValue]);
+  }, [decimalValue, clearValue]);
 
   const onChangeHex = () => {
     axios.get(`/api/converter?hexadecimal=${hexadecimal}`).then((response) => {
