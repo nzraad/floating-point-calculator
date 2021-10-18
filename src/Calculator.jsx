@@ -190,7 +190,7 @@ const Calculator = () => {
           }}
         >
           <Panel>
-            {result && (
+            {result !== null && (
               <Converter
                 decimalValue={result}
                 calculate
