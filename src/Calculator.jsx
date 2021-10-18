@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -136,9 +137,7 @@ const Calculator = () => {
                 color: "white",
               }}
               onClick={() => {
-                setNumberOne(null);
-                setNumberTwo(null);
-                setOperation(null);
+                location.reload();
               }}
             >
               Clear
@@ -191,7 +190,14 @@ const Calculator = () => {
           }}
         >
           <Panel>
-            {result && <Converter decimalValue={result} calculate disabled />}
+            {result && (
+              <Converter
+                decimalValue={result}
+                calculate
+                disabled
+                resultLoading
+              />
+            )}
           </Panel>
         </div>
       </div>
