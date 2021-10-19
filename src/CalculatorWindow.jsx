@@ -37,11 +37,11 @@ const CalculatorWindow = () => {
       setActiveTab(1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [location.pathname]);
 
   return (
     <Window className="window" style={{ width: "95%" }}>
-      <WindowHeader>Zoomys Web App</WindowHeader>
+      <WindowHeader>Zoomies Web App</WindowHeader>
       <WindowContent>
         <Tabs value={activeTab} onChange={handleOnClick}>
           <Tab value={0}>Converter</Tab>

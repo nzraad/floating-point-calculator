@@ -305,6 +305,7 @@ const Converter = ({
             return (
               <input
                 type="checkbox"
+                key={index}
                 name={index}
                 checked={value}
                 disabled={isLoading}
@@ -339,6 +340,7 @@ const Converter = ({
             return (
               <input
                 type="checkbox"
+                key={index}
                 name={index}
                 checked={value}
                 disabled={isLoading}
@@ -455,16 +457,16 @@ const Converter = ({
         </Button>
       )}
       <br />
-      <input type="checkbox" checked={isNormalized} />
+      <input type="checkbox" checked={isNormalized} readOnly />
       Normalized Floating Point Number
       <br />
-      <input type="checkbox" checked={isDenormalized} />
+      <input type="checkbox" checked={isDenormalized} readOnly />
       Denormalized Floating Point Number
       <br />
-      <input type="checkbox" checked={isNotANumber} />
+      <input type="checkbox" checked={isNotANumber} readOnly />
       Not a Number (NaN)
       <br />
-      <input type="checkbox" checked={isZero} />
+      <input type="checkbox" checked={isZero} readOnly />
       Zero
       <br />
       <LoadingIndicator isLoading={isLoading} />

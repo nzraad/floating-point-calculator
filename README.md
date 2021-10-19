@@ -1,4 +1,4 @@
-# Zoomys Floating Point Calculator
+# Zoomies Floating Point Calculator
 
 ## Languages
 
