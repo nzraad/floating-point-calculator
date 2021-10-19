@@ -1,6 +1,6 @@
 import React from "react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-
+import { BrowserRouter as Router } from "react-router-dom";
 import { styleReset } from "react95";
 // pick a theme of your choice
 import original from "react95/dist/themes/original";
@@ -30,12 +30,12 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 const App = () => (
-  <div>
+  <Router>
     <GlobalStyles />
     <ThemeProvider theme={original}>
       <CalculatorWindow />
     </ThemeProvider>
-  </div>
+  </Router>
 );
 
 export default App;

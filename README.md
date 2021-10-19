@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# Zoomies Floating Point Calculator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Languages
 
-## Available Scripts
+- Python - 3rd Party API
+- Go - Backend / Serverless Functions
+- React - UI
 
-In the project directory, you can run:
+## Infrastructure
 
-### `npm start`
+- Vercel - UI / Serverless Functions Hosting
+- GitHub - VCS
+- GitHub Actions - CI / CD
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## What is Vercel?
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Vercel is a platform for frontend frameworks and static sites, built to integrate with your headless content, commerce, or database. We provide a frictionless developer experience to take care of the hard things: deploying instantly, scaling automatically, and serving personalized content around the globe. We make it easy for frontend teams to develop, preview, and ship delightful user experiences, where performance is the default.
 
-### `npm test`
+## Vercel UI Featutes
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Vercel tries to automatically detect the frontend framework you’re using for your project and configure the project settings for you. If Vercel detects a framework, the Build Command will automatically be configured. Depending on a framework, the Build Command can refer to the project’s configuration file. After building a project, most frameworks will output the result in a directory. Contents in this output directory will be the only things that will be statically served by Vercel.
 
-### `npm run build`
+## Vercel Backend / Functions / API Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+With Vercel, you can deploy Serverless Functions, which are pieces of code written with backend languages that take an HTTP request and provide a response. You can use Serverless Functions to handle user authentication, form submission, database queries, custom slack commands, and more. To deploy Serverless Functions without any additional configuration, you can put files with extensions matching supported languages and exported functions in the /api directory at your project's root.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## CI / CD
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Using Vercel for GitHub, it automatically deploys your GitHub projects with Vercel, providing Preview Deployment URLs, and automatic Custom Domain updates. Vercel for GitHub will deploy every push by default. This includes pushes and pull requests made to branches. This allows those working within the repository to preview changes made before they are pushed to production. With each new push, if Vercel is already building a previous commit, the current build will be canceled to build the most recent commit so that you always have the latest changes deployed as quickly as possible.
 
-### `npm run eject`
+## PreReqs
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Node v14.17.3 or later
+- NPM v6.14.13 or later
+- Vercel CLI v23.1.2
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## How To Run
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### `Install node`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### `Install go Lang`
 
-## Learn More
+### `go install`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### `npm install`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### `vercel dev`

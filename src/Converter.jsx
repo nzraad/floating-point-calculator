@@ -8,9 +8,19 @@ const Converter = ({
   decimalValue = "0.0",
   calculate = false,
   disabled = false,
+  viewOnly = false,
+  resultLoading = false,
+  clearValueFromAbove = () => {},
 }) => {
   const [decimal, setDecimal] = useState("0.0");
   const [hexadecimal, setHexadecimal] = useState("0x00000000");
+  const [exponentValue, setExponentValue] = useState("-126 (denormalized)");
+  const [actualExponent, setActualExponent] = useState("0");
+  const [signValue, setSignValue] = useState("+1");
+  const [actualSign, setActualSign] = useState("0");
+  const [mantissaValue, setMantissaValue] = useState("0.0 (denormalized)");
+  const [actualMantissa, setActualMantissa] = useState("0");
+
   const [exponentArray, setExponentArray] = useState([
     false,
     false,
@@ -48,40 +58,159 @@ const Converter = ({
   ]);
 
   const [sign, setSign] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(resultLoading);
+  const [isNotANumber, setIsNotANumber] = useState(false);
+  const [isZero, setIsZero] = useState(false);
+  const [isDenormalized, setIsDenormalized] = useState(false);
+  const [isNormalized, setIsNormalized] = useState(false);
+
+  useEffect(() => {
+    setIsNotANumber(false);
+    setIsDenormalized(false);
+    setIsZero(false);
+    setIsNormalized(false);
+
+    if (decimal === "nan") {
+      setIsNotANumber(true);
+    } else {
+      setIsNotANumber(false);
+    }
+
+    if (parseFloat(decimal, 10) === 0) {
+      setIsZero(true);
+    } else {
+      setIsZero(false);
+    }
+
+    if (decimal !== "nan" && parseFloat(decimal, 10) !== 0) {
+      if (
+        mantissaValue.includes("denormalized") ||
+        exponentValue.includes("denormalized")
+      ) {
+        setIsDenormalized(true);
+        setIsNormalized(false);
+      } else {
+        setIsDenormalized(false);
+        setIsNormalized(true);
+      }
+    }
+  }, [decimal, mantissaValue, exponentValue]);
+
+  const clearValue = () => {
+    setHexadecimal("0x00000000");
+    setDecimal("0.0");
+    setSign(false);
+    setMantisseArray([
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+    ]);
+    setExponentArray([false, false, false, false, false, false, false, false]);
+    clearValueFromAbove();
+  };
 
   const onChangeDecimal = () => {
     axios.get(`/api/converter?decimal=${decimal}`).then((response) => {
       const { data } = response;
-      setDecimalValue(decimal);
-      setHexadecimal(data.hexadecimalRepr);
-      setExponentArray(data.exponent_array);
-      setMantisseArray(data.mantisse_array);
-      setSign(data.sign_bool);
+      if (
+        data.decimalRepr === "" &&
+        data.decimalRepr === "" &&
+        data.highprecision_decimal === ""
+      ) {
+        window.confirm("Invalid Entry");
+      } else {
+        setDecimal(decimal);
+        setDecimalValue(decimal);
+        setHexadecimal(data.hexadecimalRepr.toUpperCase());
+        setExponentArray(data.exponent_array);
+        setMantisseArray(data.mantisse_array);
+        setSign(data.sign_bool);
+        setExponentValue(data.exponent_value);
+        setActualExponent(data.actual_exponent);
+        setSignValue(data.sign_value);
+        setActualSign(data.actual_sign);
+        setMantissaValue(data.mantissa_value);
+        setActualMantissa(data.actual_mantissa);
+      }
       setIsLoading(false);
     });
   };
 
   useEffect(() => {
-    axios.get(`/api/converter?decimal=${decimalValue}`).then((response) => {
-      const { data } = response;
-      setDecimal(data.decimalRepr);
-      setHexadecimal(data.hexadecimalRepr);
-      setExponentArray(data.exponent_array);
-      setMantisseArray(data.mantisse_array);
-      setSign(data.sign_bool);
-      setIsLoading(false);
-    });
+    if (decimalValue !== "0.0") {
+      axios.get(`/api/converter?decimal=${decimalValue}`).then((response) => {
+        const { data } = response;
+        if (
+          data.decimalRepr === "" &&
+          data.decimalRepr === "" &&
+          data.highprecision_decimal === ""
+        ) {
+          window.confirm("Invalid Entry");
+        } else {
+          setDecimal(data.decimalRepr);
+          setDecimalValue(data.decimalRepr);
+          setHexadecimal(data.hexadecimalRepr.toUpperCase());
+          setExponentArray(data.exponent_array);
+          setMantisseArray(data.mantisse_array);
+          setSign(data.sign_bool);
+          setExponentValue(data.exponent_value);
+          setActualExponent(data.actual_exponent);
+          setSignValue(data.sign_value);
+          setActualSign(data.actual_sign);
+          setMantissaValue(data.mantissa_value);
+          setActualMantissa(data.actual_mantissa);
+        }
+      });
+    } else {
+      clearValue();
+    }
+    setIsLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [decimalValue]);
 
   const onChangeHex = () => {
     axios.get(`/api/converter?hexadecimal=${hexadecimal}`).then((response) => {
       const { data } = response;
-      setDecimal(data.decimalRepr);
-      setDecimalValue(data.decimalRepr);
-      setExponentArray(data.exponent_array);
-      setMantisseArray(data.mantisse_array);
-      setSign(data.sign_bool);
+      if (
+        data.decimalRepr === "" &&
+        data.decimalRepr === "" &&
+        data.highprecision_decimal === ""
+      ) {
+        window.confirm("Invalid Entry");
+      } else {
+        setDecimal(data.decimalRepr);
+        setDecimalValue(data.decimalRepr);
+        setExponentArray(data.exponent_array);
+        setMantisseArray(data.mantisse_array);
+        setSign(data.sign_bool);
+        setExponentValue(data.exponent_value);
+        setActualExponent(data.actual_exponent);
+        setSignValue(data.sign_value);
+        setActualSign(data.actual_sign);
+        setMantissaValue(data.mantissa_value);
+        setActualMantissa(data.actual_mantissa);
+      }
+
       setIsLoading(false);
     });
   };
@@ -96,9 +225,23 @@ const Converter = ({
       )
       .then((response) => {
         const { data } = response;
-        setDecimal(data.decimalRepr);
-        setDecimalValue(data.decimalRepr);
-        setHexadecimal(data.hexadecimalRepr);
+        if (
+          data.decimalRepr === "" &&
+          data.decimalRepr === "" &&
+          data.highprecision_decimal === ""
+        ) {
+          window.confirm("Invalid Entry");
+        } else {
+          setDecimal(data.decimalRepr);
+          setDecimalValue(data.decimalRepr);
+          setHexadecimal(data.hexadecimalRepr);
+          setExponentValue(data.exponent_value);
+          setActualExponent(data.actual_exponent);
+          setSignValue(data.sign_value);
+          setActualSign(data.actual_sign);
+          setMantissaValue(data.mantissa_value);
+          setActualMantissa(data.actual_mantissa);
+        }
         setIsLoading(false);
       });
   };
@@ -117,9 +260,9 @@ const Converter = ({
         <div>
           Sign
           <br />
-          +1
+          {signValue}
           <br />
-          0
+          {actualSign}
           <br />
           <input
             type="checkbox"
@@ -153,16 +296,16 @@ const Converter = ({
                 fontSize: "smaller",
               }}
             >
-              -126
+              {exponentValue}
             </sup>
-            (denormalized)
           </p>
-          0
+          {actualExponent}
           <br />
           {exponentArray.map((value, index) => {
             return (
               <input
                 type="checkbox"
+                key={index}
                 name={index}
                 checked={value}
                 disabled={isLoading}
@@ -189,14 +332,15 @@ const Converter = ({
         <div>
           Mantissa
           <br />
-          1.0
+          {mantissaValue}
           <br />
-          0
+          {actualMantissa}
           <br />
           {mantisseArray.map((value, index) => {
             return (
               <input
                 type="checkbox"
+                key={index}
                 name={index}
                 checked={value}
                 disabled={isLoading}
@@ -269,7 +413,7 @@ const Converter = ({
           style={{ width: "50%", margin: calculate ? "auto" : "" }}
           disabled={isLoading}
           onChange={(e) => {
-            setHexadecimal(e.target.value);
+            setHexadecimal(e.target.value.toUpperCase());
           }}
         />
       </div>
@@ -293,7 +437,38 @@ const Converter = ({
         </Button>
       )}
       <br />
-
+      {!viewOnly && decimal !== "0.0" && (
+        <Button
+          style={{
+            height: "50px",
+            width: "200px",
+            float: calculate ? "" : "right",
+            marginTop: "10px",
+            marginBottom: "10px",
+            backgroundColor: "#060084",
+            color: "white",
+          }}
+          disabled={isLoading}
+          onClick={() => {
+            clearValue();
+          }}
+        >
+          Clear
+        </Button>
+      )}
+      <br />
+      <input type="checkbox" checked={isNormalized} readOnly />
+      Normalized Floating Point Number
+      <br />
+      <input type="checkbox" checked={isDenormalized} readOnly />
+      Denormalized Floating Point Number
+      <br />
+      <input type="checkbox" checked={isNotANumber} readOnly />
+      Not a Number (NaN)
+      <br />
+      <input type="checkbox" checked={isZero} readOnly />
+      Zero
+      <br />
       <LoadingIndicator isLoading={isLoading} />
     </div>
   );
